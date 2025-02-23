@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4 text-center">新しいタスクを追加</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_title">タイトル</label>
+            <input type="text" name="title" class="form-control" id="id_title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_description">詳細</label>
+            <textarea name="description" class="form-control" id="id_description" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="id_due_date">期限</label>
+            <input type="date" name="due_date" class="form-control" id="id_due_date" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">タスクを追加</button>
+    </form>
+{% endblock %}

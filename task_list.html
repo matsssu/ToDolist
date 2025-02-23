@@ -1,0 +1,40 @@
+<!-- task_list.html -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Todo List</h1>
+        <a href="{% url 'add_task' %}" class="btn btn-primary mb-3">タスク追加</a>
+        
+        <h2>未完了のタスク</h2>
+        <ul class="list-group">
+            {% for task in tasks %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="fw-bold">{{ task.title }}</span>
+                    <span>期限: {{ task.due_date|date:"Y年m月d日" }}</span>
+                    <span>詳細: {{ task.description }}</span>
+                    <a href="{% url 'edit_task' task.id %}" class="btn btn-warning btn-sm">編集</a>
+                    <a href="{% url 'complete_task' task.id %}" class="btn btn-success btn-sm">完了</a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <h2 class="mt-5">完了したタスク</h2>
+        <ul class="list-group">
+            {% for task in completed_tasks %}
+                <li class="list-group-item d-flex justify-content-between" style="background-color: #f0f0f0;">
+                    <span class="fw-bold text-decoration-line-through">{{ task.title }}</span>
+                    <span>完了日: {{ task.completed_date|date:"Y年m月d日" }}</span>
+                    <a href="{% url 'delete_completed_task' task.id %}" class="btn btn-danger btn-sm">削除</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
